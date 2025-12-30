@@ -63,7 +63,7 @@ def scholar_requests(scholar_pages, url, restrict, chrome_version, scholar_resul
                 break
 
         papers = schoolarParser(html)
-        print(html)
+
         if len(papers) > scholar_results:
             papers = papers[0:scholar_results]
 
