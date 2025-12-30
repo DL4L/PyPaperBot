@@ -6,6 +6,7 @@ from selenium.webdriver.chrome.options import Options
 from .HTMLparsers import schoolarParser
 from .Crossref import getPapersInfo
 from .NetInfo import NetInfo
+import os
 
 
 def waithIPchange():
