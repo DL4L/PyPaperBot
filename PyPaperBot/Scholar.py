@@ -36,8 +36,23 @@ def scholar_requests(scholar_pages, url, restrict, chrome_version, scholar_resul
                 driver.get(res_url)
                 html = driver.page_source
             else:
+                brightdata_token = os.environ["BRIGHTDATA_TOKEN"]
+                headers = {
+                    'Content-Type': 'application/json',
+                    'Authorization': f'Bearer {brightdata_token}',
+                }
+                encoded_url = quote(res_url, safe=":/?&=,+")
+                payload = {
+                    'zone': 'serp_api1',
+                    'url': encoded_url,
+                    'format': 'raw'  # set to "json" for parsed output
+                }
+
+                res = requests.post('https://api.brightdata.com/request',
+                                headers=headers, json=payload)
                 html = requests.get(res_url, headers=NetInfo.HEADERS)
                 html = html.text
+                html = res.text
 
             if javascript_error in html:
                 is_continue = waithIPchange()
@@ -47,6 +62,7 @@ def scholar_requests(scholar_pages, url, restrict, chrome_version, scholar_resul
                 break
 
         papers = schoolarParser(html)
+        print(html)
         if len(papers) > scholar_results:
             papers = papers[0:scholar_results]
 
