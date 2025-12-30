@@ -7,7 +7,7 @@ from .HTMLparsers import schoolarParser
 from .Crossref import getPapersInfo
 from .NetInfo import NetInfo
 import os
-
+from urllib.parse import quote
 
 def waithIPchange():
     while True:
